@@ -17,9 +17,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+//        User::firstOrCreate(
+//            ['email' => 'admin@example.com'],
+//            [
+//                'name' => 'Max Mustermann',
+//                'password' => bcrypt('admin'),
+//            ]
+//        );
+
+        $this->call([
+            TranscriptionStateSeeder::class,
         ]);
     }
 }

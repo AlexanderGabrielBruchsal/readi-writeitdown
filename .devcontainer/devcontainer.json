@@ -17,7 +17,8 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "laravel.vscode-laravel"
+                "laravel.vscode-laravel",
+                "xdebug.php-pack"
             ]
         }
     }
