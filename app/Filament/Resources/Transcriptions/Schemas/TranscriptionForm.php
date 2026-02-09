@@ -21,7 +21,8 @@ class TranscriptionForm
                 DateTimePicker::make("upload_time")->disabledOn(["edit"])->visibleOn("edit"),
                 DateTimePicker::make("start_time")->disabledOn(["edit"])->visibleOn("edit"),
                 DateTimePicker::make("end_time")->disabledOn(["edit"])->visibleOn("edit"),
-                FileUpload::make('attachment')->visibleOn(["create"])
+                FileUpload::make('attachment')->visibleOn(["create"])->storeFileNamesIn('attachment_filename'),
+                FileUpload::make('attachment_filename')->visibleOn(["edit"])->label("Dateiname")
             ]);
     }
 }

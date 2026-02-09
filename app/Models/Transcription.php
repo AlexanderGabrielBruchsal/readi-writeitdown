@@ -10,6 +10,7 @@ class Transcription extends Model
     protected $fillable = [
         "description"
         , "attachment"
+        , "attachment_filename"
         , "user_id"
         , "upload_time"
         , "start_time"

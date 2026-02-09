@@ -24,7 +24,7 @@ class TranscriptionsTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('description')
                     ->searchable(),
-                TextColumn::make('attachment')
+                TextColumn::make('attachment_filename')->label("Dateiname")
                     ->searchable(),
                 TextColumn::make('user.name')
                     ->searchable(),
