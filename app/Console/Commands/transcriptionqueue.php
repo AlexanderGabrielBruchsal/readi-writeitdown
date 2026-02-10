@@ -34,9 +34,9 @@ class transcriptionqueue extends Command
         $filenamePrefix = "storage/app/private/";
         $stagingPrefix = "../storage/app/private/staging/";
         $outputPrefix = "../storage/app/private/output/";
-        $stateUploaded = TranscriptionState::FirstOrFail("name", "uploaded")->first();
-        $stateQueued = TranscriptionState::FirstOrFail("name", "queued")->first();
-        $stateDone = TranscriptionState::FirstOrFail("name", "done")->first();
+        $stateUploaded = TranscriptionState::where("name", "uploaded")->first();
+        $stateQueued = TranscriptionState::where("name", "queued")->first();
+        $stateDone = TranscriptionState::where("name", "done")->first();
         // Hochgeladene Transcriptionen laden
         $transcriptions = Transcription::where("transcription_state_id", $stateUploaded->id)->get();
         // Dateien ausspielen in Übergabe-Stagingverzeichnis
@@ -64,9 +64,10 @@ class transcriptionqueue extends Command
             $transcription = Transcription::where("attachment", "$basename.mp3")->first();
             if($transcription != null) {
                 $destination = $filenamePrefix.$filename;
-                File::move($inputFile, $destination);
+                File::move($filenamePrefix."/".$inputFile, $destination);
 
                 $transcription->transcription_state_id = $stateDone->id;
+                $transcription->transcription = $filename;
                 $transcription->save();
                 //Mail mit Downloadlink versenden
 

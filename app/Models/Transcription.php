@@ -11,6 +11,7 @@ class Transcription extends Model
         "description"
         , "attachment"
         , "attachment_filename"
+        , "transcription"
         , "user_id"
         , "upload_time"
         , "start_time"
