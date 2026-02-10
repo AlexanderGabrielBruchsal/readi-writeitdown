@@ -2,10 +2,14 @@
 
 namespace App\Console\Commands;
 
+use App\Filament\Resources\Transcriptions\TranscriptionResource;
+use App\Mail\TranscriptionFinished;
 use App\Models\Transcription;
 use App\Models\TranscriptionState;
+use App\Models\User;
 use \Illuminate\Support\Facades\File;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class transcriptionqueue extends Command
@@ -49,7 +53,6 @@ class transcriptionqueue extends Command
 
             $output = public_path($outputPrefix.$transcription->attachment);
             File::move($staging,$output);
-
             $transcription->transcription_state_id = $stateQueued->id;
             $transcription->save();
         }
@@ -69,7 +72,10 @@ class transcriptionqueue extends Command
                 $transcription->transcription_state_id = $stateDone->id;
                 $transcription->transcription = $filename;
                 $transcription->save();
+
                 //Mail mit Downloadlink versenden
+                $user = User::find($transcription->user_id);
+                Mail::to($user)->send(new TranscriptionFinished($transcription));
 
             }
         }
